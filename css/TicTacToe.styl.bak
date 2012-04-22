@@ -1,0 +1,208 @@
+// Properties
+$playerXColor = #cc4021
+$playerOColor = #22adcc
+$canvasBorder = #5f7d9c
+$playButtonLightColor = rgba(191,210,85,1)
+$playButtonDarkColor = rgba(87,127,0,1)
+
+// Mixins
+border-radius(radius)
+  -webkit-border-radius radius
+  -moz-border-radius radius
+  border-radius radius
+
+box-shadow(horizontal, vertical, blur, spread, color)
+  -webkit-box-shadow horizontal vertical blur spread color
+  -moz-box-shadow horizontal vertical blur spread color
+  box-shadow horizontal vertical blur spread color
+
+bg-linear-gradient(type, typeStartX, typeStartY, typeEndX, typeEndY, firstColor, firstPerc, secondColor, secondPerc, thirdColor, thirdPerc)
+  background firstColor
+  background -moz-linear-gradient(type, firstColor firstPerc, secondColor secondPerc, thirdColor thirdPerc)
+  background -webkit-gradient(linear, typeStartX typeStartY, typeEndX typeEndY, color-stop(firstPerc, firstColor), color-stop(secondPerc, secondColor), color-stop(thirdPerc, thirdColor))
+  background -webkit-linear-gradient(type, firstColor firstPerc, secondColor secondPerc, thirdColor thirdPerc)
+  background -o-linear-gradient(type, firstColor firstPerc, secondColor secondPerc, thirdColor thirdPerc)
+  background -ms-linear-gradient(type, firstColor firstPerc, secondColor secondPerc, thirdColor thirdPerc)
+  background linear-gradient(type, firstColor firstPerc, secondColor secondPerc, thirdColor thirdPerc)
+
+bg-linear-gradient-vertical(firstColor, firstPerc, secondColor, secondPerc, thirdColor, thirdPerc)
+  bg-linear-gradient top left top left bottom firstColor firstPerc secondColor secondPerc thirdColor thirdPerc
+
+bg-linear-gradient-horizontal(firstColor, firstPerc, secondColor, secondPerc, thirdColor, thirdPerc)
+  bg-linear-gradient left left top right top firstColor firstPerc secondColor secondPerc thirdColor thirdPerc
+
+animation(name, duration, repetition, direction)
+  -webkit-animation-name name
+  -webkit-animation-duration duration
+  -webkit-animation-iteration-count repetition
+  -webkit-animation-direction direction
+  -moz-animation-name name
+  -moz-animation-duration duration
+  -moz-animation-iteration-count repetition
+  -moz-animation-direction direction
+  -ms-animation-name name
+  -ms-animation-duration duration
+  -ms-animation-iteration-count repetition
+  -ms-animation-direction direction
+  -o-animation-name name
+  -o-animation-duration duration
+  -o-animation-iteration-count repetition
+  -o-animation-direction direction
+  animation-name name
+  animation-duration duration
+  animation-iteration-count repetition
+  animation-direction alternate
+
+blinker(which, winner)
+  .blinker
+    width 100%
+    height 100%
+  .blinker.active
+    animation which 1.5s infinite alternate
+  .blinker.winner
+    animation winner 0.1s infinite alternate
+
+// Own definitions
+body
+  margin 0
+  padding 0
+  overflow hidden
+  backround-color black
+  font-family 'Trebuchet MS', 'Geneva CE', lucida, sans-serif
+  font-size 1.5em
+
+*
+  -webkit-tap-highlight-color rgba(0,0,0,0)
+
+#board
+  position absolute
+  background-color white
+  background-image url('../img/paper.jpg')
+  box-shadow 0px 0px 50px 0px rgba(black, 0.6)
+  border 4px solid $canvasBorder
+  top 7.5%
+
+#playerLeft
+  float left
+  width 50%
+  &.x
+    blinker playerX playerXWinner
+    bg-linear-gradient-horizontal rgba($playerXColor, 0.8) 0% rgba($playerXColor, 0.2) 80% rgba(white, 0) 100%
+  &.o
+    blinker playerO playerOWinner
+    bg-linear-gradient-horizontal rgba($playerOColor, 0.8) 0% rgba($playerOColor, 0.2) 80% rgba(white, 0) 100%
+
+#playerRight
+  float right
+  width 50%
+  &.x
+    blinker playerX playerXWinner
+    bg-linear-gradient-horizontal rgba(white, 0) 0% rgba($playerXColor, 0.2) 20% rgba($playerXColor, 0.8) 100%
+  &.o
+    blinker playerO playerOWinner
+    bg-linear-gradient-horizontal rgba(white, 0) 0% rgba($playerOColor, 0.2) 20% rgba($playerOColor, 0.8) 100%
+
+.canvasColorDef
+  display none
+
+.player.x .canvasColorDef
+  .stroke
+    color $playerXColor
+
+.player.o .canvasColorDef
+  .stroke
+    color $playerOColor
+
+#board .canvasColorDef
+  .lines
+    color rgba($canvasBorder, 0.3)
+  .score
+    color white
+
+@keyframes playerX {
+  0% { background rgba($playerXColor, 0.8) }
+  65% { background transparent }
+  100% { background transparent }
+}
+
+@keyframes playerO {
+  0% { background rgba($playerOColor, 0.8) }
+  65% { background transparent }
+  100% { background transparent }
+}
+
+@keyframes playerXWinner {
+  0% { background rgba($playerXColor, 1) }
+  100% { background rgba($playerXColor, 0.5) }
+}
+
+@keyframes playerOWinner {
+  0% { background rgba($playerOColor, 1) }
+  100% { background rgba($playerOColor, 0.5) }
+}
+
+#main
+  position absolute
+  width 100%
+  height 100%
+  text-align center
+  background-color rgba(white, 0.7)
+  bg-linear-gradient-horizontal rgba(white, 0.2) 0% rgba(white, 0.9) 50% rgba(white, 0.2) 100%
+  padding-top 7.5%
+  h1, h2
+    margin 0
+    color $playerXColor
+    text-shadow 0px 0px 30px rgba(black, 0.4)
+    //font-size 2.0em
+  h2
+    margin 0
+    margin-bottom 50px
+    color $playerOColor
+    //font-size 2em
+
+#play
+  border-radius 20px
+  padding 20px
+  margin 20px
+  bg-linear-gradient-vertical $playButtonLightColor 0% $playButtonDarkColor 50% $playButtonDarkColor 100%
+  color white
+  font-weight bold
+  text-decoration none
+  text-shadow 0px 0px 20px rgba(white, 1)
+  box-shadow 0px 0px 20px 0px rgba(black, 0.6)
+  text-transform uppercase
+
+#play:hover, #play:focus
+  bg-linear-gradient-vertical $playButtonDarkColor 0% $playButtonLightColor 50% $playButtonLightColor 100%
+  color black
+
+#restart
+  display none
+  font-weight bold
+  color $playerXColor
+  text-transform uppercase
+  font-size 0.8em
+
+#restart:hover, #restart:focus
+  color black
+  text-decoration none
+
+#playerSelectLeft, #playerSelectRight
+  position absolute
+  top 3.5%
+  width 42%
+  margin 4%
+  canvas
+    background-color white
+    background-image url('../img/paper.jpg')
+    box-shadow 0px 0px 50px 0px rgba(black, 0.6)
+    border 4px solid $canvasBorder
+
+#playerSelectLeft
+  text-align left
+
+#playerSelectRight
+  left 50%
+  text-align right
+  canvas
+    background-position right bottom

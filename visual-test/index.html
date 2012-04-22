@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<title>TicTacToe &dash; Visual Test</title>
+<base href="/js/TicTacToe/"/>
+<link rel="stylesheet" href="css/TicTacToe.css"/>
+<script src="lib/jquery.min.js"></script>
+<script src="lib/jcanvas.min.js"></script>
+<script src="js/Cell.js"></script>
+<script src="js/Board.js"></script>
+<script src="js/BoardView.js"></script>
+<script src="js/TicTacToe.js"></script>
+
+<div id="playerLeft" class="player x">
+  <div class="blinker"></div>
+  <span class="canvasColorDef"><span class="stroke"></span>
+</div>
+<div id="playerRight" class="player o">
+  <div class="blinker"></div>
+  <span class="canvasColorDef"><span class="stroke"></span>
+</div>
+
+<canvas id="board">
+  <span class="canvasColorDef"><span class="lines"></span><span class="score"></span></span>
+</canvas>
+
+<div id="main">
+  <div id="header">
+    <h1>Amálčiny TABletové<br/>piškvorky</h1>
+    <h2>k 10.1 TABrozeninám</h2>
+    <br/>
+    <a id="play" href="#">hraj</a>
+    <br/><br/><br/>
+    <a id="restart" href="#">vynulovat skóre</a>
+  </div>
+</div>
+
+<div id="playerSelectLeft">
+  <canvas></canvas>
+</div>
+<div id="playerSelectRight">
+  <canvas></canvas>
+</div>
